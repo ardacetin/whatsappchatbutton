@@ -1,30 +1,38 @@
 (function () {
-  const phone = new URLSearchParams(window.location.search).get('phone') || '+15551234567';
-  const position = new URLSearchParams(window.location.search).get('position') || 'right';
-  const size = new URLSearchParams(window.location.search).get('size') || '60px';
-  const visible = new URLSearchParams(window.location.search).get('visible') || 'true';
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const phone = urlParams.get('phone') || '+15551234567';
+  const position = urlParams.get('position') || 'right';
+  const size = urlParams.get('size') || 'medium';
+  const visible = urlParams.get('visible') || 'true';
 
   if (visible !== 'true') return;
 
-  const btn = document.createElement('a');
-  btn.href = `https://wa.me/${phone.replace('+', '')}`;
-  btn.target = '_blank';
-  btn.innerText = '💬';
-  btn.style.position = 'fixed';
-  btn.style.bottom = '20px';
-  btn.style[position] = '20px';
-  btn.style.width = size;
-  btn.style.height = size;
-  btn.style.backgroundColor = '#25D366';
-  btn.style.borderRadius = '50%';
-  btn.style.color = '#fff';
-  btn.style.fontSize = '28px';
-  btn.style.display = 'flex';
-  btn.style.alignItems = 'center';
-  btn.style.justifyContent = 'center';
-  btn.style.zIndex = '9999';
-  btn.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
-  btn.style.textDecoration = 'none';
+  const sizeMap = {
+    small: '40px',
+    medium: '60px',
+    large: '80px'
+  };
 
-  document.body.appendChild(btn);
+  const button = document.createElement("a");
+  button.href = `https://wa.me/${phone.replace(/\D/g, '')}`;
+  button.target = "_blank";
+  button.innerHTML = "💬";
+  button.style.position = "fixed";
+  button.style.bottom = "20px";
+  button.style[position] = "20px";
+  button.style.backgroundColor = "#25D366";
+  button.style.color = "white";
+  button.style.fontSize = "28px";
+  button.style.width = sizeMap[size];
+  button.style.height = sizeMap[size];
+  button.style.display = "flex";
+  button.style.alignItems = "center";
+  button.style.justifyContent = "center";
+  button.style.borderRadius = "50%";
+  button.style.textDecoration = "none";
+  button.style.zIndex = "9999";
+  button.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+
+  document.body.appendChild(button);
 })();
